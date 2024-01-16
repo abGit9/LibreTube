@@ -60,6 +60,7 @@ class ChannelFragment : DynamicLayoutManagerFragment() {
     private var searchAdapter: SearchAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         channelName = args.channelName
             ?.replace("/c/", "")
@@ -72,11 +73,13 @@ class ChannelFragment : DynamicLayoutManagerFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         _binding = FragmentChannelBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun setLayoutManagers(gridItems: Int) {
+
         _binding?.channelRecView?.layoutManager = GridLayoutManager(
             context,
             gridItems.ceilHalf()
@@ -84,6 +87,7 @@ class ChannelFragment : DynamicLayoutManagerFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
 
         binding.channelRefresh.setOnRefreshListener {

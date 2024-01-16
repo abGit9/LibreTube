@@ -10,7 +10,8 @@
         android:id="@+id/search_results_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#6a82fb">
 
         <HorizontalScrollView
             android:id="@+id/filter_bar"
@@ -45,6 +46,7 @@
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_channels"
                     style="@style/Chip"
+                    android:background="#ff003f"
                     android:text="@string/channels" />
 
                 <com.google.android.material.chip.Chip

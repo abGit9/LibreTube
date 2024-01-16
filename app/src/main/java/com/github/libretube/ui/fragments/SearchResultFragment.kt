@@ -44,10 +44,12 @@ class SearchResultFragment : DynamicLayoutManagerFragment() {
     private var searchFilter = "all"
 
     override fun onCreateView(
+
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         _binding = FragmentSearchResultBinding.inflate(inflater)
         return binding.root
     }
