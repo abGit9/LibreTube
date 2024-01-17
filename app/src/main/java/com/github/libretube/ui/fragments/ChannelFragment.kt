@@ -60,7 +60,7 @@ class ChannelFragment : DynamicLayoutManagerFragment() {
     private var searchAdapter: SearchAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
+        Log.d("ChannelFragment","onCreate")
         super.onCreate(savedInstanceState)
         channelName = args.channelName
             ?.replace("/c/", "")
@@ -73,13 +73,13 @@ class ChannelFragment : DynamicLayoutManagerFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
+        Log.d("ChannelFragment","onCreateView")
         _binding = FragmentChannelBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun setLayoutManagers(gridItems: Int) {
-
+        Log.d("ChannelFragment","setLayoutManagers")
         _binding?.channelRecView?.layoutManager = GridLayoutManager(
             context,
             gridItems.ceilHalf()
@@ -87,14 +87,16 @@ class ChannelFragment : DynamicLayoutManagerFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        Log.d("ChannelFragment","onViewCreated")
         super.onViewCreated(view, savedInstanceState)
 
         binding.channelRefresh.setOnRefreshListener {
+            Log.d("ChannelFragment"," in OnRefreshListener")
             fetchChannel()
         }
 
         binding.channelScrollView.viewTreeObserver.addOnScrollChangedListener {
+            Log.d("ChannelFragment"," in OnScrollChangedListener")
             val binding = _binding ?: return@addOnScrollChangedListener
 
             if (binding.channelScrollView.canScrollVertically(1) || isLoading) return@addOnScrollChangedListener
@@ -106,11 +108,13 @@ class ChannelFragment : DynamicLayoutManagerFragment() {
     }
 
     override fun onDestroyView() {
+        Log.d("ChannelFragment","onDestroyView")
         super.onDestroyView()
         _binding = null
     }
 
     private fun loadNextPage() = lifecycleScope.launch {
+        Log.d("ChannelFragment","loadNextPage lifecycleScope.launch")
         val binding = _binding ?: return@launch
 
         binding.channelRefresh.isRefreshing = true
@@ -142,6 +146,7 @@ class ChannelFragment : DynamicLayoutManagerFragment() {
     }
 
     private fun fetchChannel() = lifecycleScope.launch {
+        Log.d("ChannelFragment","fetchChannel lifecycleScope.launch")
         isLoading = true
         binding.channelRefresh.isRefreshing = true
 
@@ -247,6 +252,7 @@ class ChannelFragment : DynamicLayoutManagerFragment() {
     }
 
     private fun setupTabs(tabs: List<ChannelTab>) {
+        Log.d("ChannelFragment","setupTabs")
         this.channelTabs = tabs
 
         val binding = _binding ?: return
@@ -281,6 +287,7 @@ class ChannelFragment : DynamicLayoutManagerFragment() {
     }
 
     private fun loadChannelTab(tab: ChannelTab) = lifecycleScope.launch {
+        Log.d("ChannelFragment","loadChannelTab")
         binding.channelRefresh.isRefreshing = true
         isLoading = true
 
@@ -305,19 +312,28 @@ class ChannelFragment : DynamicLayoutManagerFragment() {
         isLoading = false
     }
 
+
+
     private suspend fun fetchChannelNextPage(nextPage: String): String? {
+        Log.d("ChannelFragment","fetchChannelNextPage")
         val response = withContext(Dispatchers.IO) {
             RetrofitInstance.api.getChannelNextPage(channelId!!, nextPage).apply {
                 relatedStreams = relatedStreams.deArrow()
             }
         }
 
-        channelAdapter?.insertItems(response.relatedStreams)
+       channelAdapter?.insertItems(response.relatedStreams)
+     //  withContext(Dispatchers.Main) {
+          // channelAdapter?.insertItems(response.relatedStreams)
+
+
+      //}
 
         return response.nextpage
     }
 
     private suspend fun fetchTabNextPage(nextPage: String, tab: ChannelTab): String? {
+        Log.d("ChannelFragment","fetchTabNextPage")
         val newContent = withContext(Dispatchers.IO) {
             RetrofitInstance.api.getChannelTab(tab.data, nextPage)
         }.apply {

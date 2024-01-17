@@ -3,6 +3,7 @@ package com.github.libretube.ui.views
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
 import android.view.MotionEvent.ACTION_MOVE
 import android.view.ViewConfiguration
@@ -27,6 +28,7 @@ class CustomSwipeToRefresh(context: Context?, attrs: AttributeSet?) :
 
     @SuppressLint("Recycle")
     override fun onInterceptTouchEvent(event: MotionEvent): Boolean {
+        Log.d("CustomSwipeToRefresh","onInterceptTouchEvent")
         when (event.action) {
             MotionEvent.ACTION_DOWN -> mPrevX = MotionEvent.obtain(event).x
             ACTION_MOVE -> {

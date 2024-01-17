@@ -49,16 +49,18 @@ class SearchResultFragment : DynamicLayoutManagerFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
+        Log.d("SearchResultFragment","onCreateView")
         _binding = FragmentSearchResultBinding.inflate(inflater)
         return binding.root
     }
 
     override fun setLayoutManagers(gridItems: Int) {
+        Log.d("SearchResultFragment","setLayoutManagers")
         _binding?.searchRecycler?.layoutManager = GridLayoutManager(context, gridItems.ceilHalf())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.d("SearchResultFragment","onViewCreated")
         super.onViewCreated(view, savedInstanceState)
 
         // fixes a bug that the search query will stay the old one when searching for multiple
@@ -90,6 +92,7 @@ class SearchResultFragment : DynamicLayoutManagerFragment() {
         fetchSearch()
 
         binding.searchRecycler.viewTreeObserver.addOnScrollChangedListener {
+            Log.d("SearchResultFragment","viewTreeObserver.addOnScrollChangedListener")
             if (_binding?.searchRecycler?.canScrollVertically(1) == false &&
                 nextPage != null
             ) {
@@ -99,6 +102,7 @@ class SearchResultFragment : DynamicLayoutManagerFragment() {
     }
 
     private fun fetchSearch() {
+        Log.d("SearchResultFragment","fetchSearch")
         _binding?.progress?.isVisible = true
         _binding?.searchResultsLayout?.isGone = true
 
@@ -139,6 +143,7 @@ class SearchResultFragment : DynamicLayoutManagerFragment() {
     }
 
     private fun fetchNextSearchItems() {
+        Log.d("SearchResultFragment","fetchNextSearchItems")
         lifecycleScope.launch {
             val response = try {
                 withContext(Dispatchers.IO) {
@@ -162,6 +167,7 @@ class SearchResultFragment : DynamicLayoutManagerFragment() {
     }
 
     private fun addToHistory(query: String) {
+        Log.d("SearchResultFragment","addToHistory")
         val searchHistoryEnabled =
             PreferenceHelper.getBoolean(PreferenceKeys.SEARCH_HISTORY_TOGGLE, true)
         if (searchHistoryEnabled && query.isNotEmpty()) {
@@ -172,6 +178,7 @@ class SearchResultFragment : DynamicLayoutManagerFragment() {
     }
 
     override fun onDestroyView() {
+        Log.d("SearchResultFragment","onDestroyView")
         super.onDestroyView()
         _binding = null
     }
