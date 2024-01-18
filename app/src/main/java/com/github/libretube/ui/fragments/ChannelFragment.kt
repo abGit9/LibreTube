@@ -122,6 +122,9 @@ class ChannelFragment : DynamicLayoutManagerFragment() {
 
         try {
             if (binding.tabChips.checkedChipId == binding.videos.id) {
+               // Log.d("fetchChannelNextPage","calling from loadNextPage")
+                if(nextPages[0] == null)   Log.d("fetchChannelNextPage","calling from loadNextPage NULL")
+                else  Log.d("fetchChannelNextPage","calling from loadNextPage it is there")
                 fetchChannelNextPage(nextPages[0] ?: return@launch).let {
                     nextPages[0] = it
                 }
@@ -313,7 +316,7 @@ class ChannelFragment : DynamicLayoutManagerFragment() {
     }
 
 
-
+/*
     private suspend fun fetchChannelNextPage(nextPage: String): String? {
         Log.d("ChannelFragment","fetchChannelNextPage")
         val response = withContext(Dispatchers.IO) {
@@ -330,8 +333,34 @@ class ChannelFragment : DynamicLayoutManagerFragment() {
       //}
 
         return response.nextpage
-    }
+    }*/
+    private fun fetchChannelNextPage(nextPage: String): String? {
+    Log.d("fetchChannelNextPage","here!!!!!!!!!!!!!")
+    Log.d("ChannelFragment","fetchChannelNextPage")
+       // var next: String? = null
+        var next: String? = null
+        lifecycleScope.launch {
+            Log.d("fetchChannelNextPage","in coroutine launch")
+            val response = try {
+                withContext(Dispatchers.IO) {
+                    RetrofitInstance.api.getChannelNextPage(channelId!!, nextPage).apply {
+                        relatedStreams = relatedStreams.deArrow()
+                    }
+                }
+               // Log.d("fetchChannelNextPage"," try block in coroutine launch")
+            } catch (e: Exception) {
+                Log.e(TAG(), e.toString())
+                return@launch
+            }
+            if(response.nextpage == null) Log.d("fetchChannelNextPage","response.nextpage is null")
+            else Log.d("fetchChannelNextPage","response.nextpage is NOT null")
 
+            next = response.nextpage
+
+            channelAdapter?.insertItems(response.relatedStreams)
+        }
+        return next
+    }
     private suspend fun fetchTabNextPage(nextPage: String, tab: ChannelTab): String? {
         Log.d("ChannelFragment","fetchTabNextPage")
         val newContent = withContext(Dispatchers.IO) {
