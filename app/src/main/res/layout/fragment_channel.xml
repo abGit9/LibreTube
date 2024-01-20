@@ -6,12 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/channel_scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="invisible"
+
         tools:context=".ui.fragments.ChannelFragment">
 
         <LinearLayout
@@ -166,5 +166,5 @@
 
             </RelativeLayout>
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 </com.github.libretube.ui.views.CustomSwipeToRefresh>
