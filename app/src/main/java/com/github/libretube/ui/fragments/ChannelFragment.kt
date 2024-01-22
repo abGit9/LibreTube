@@ -12,6 +12,8 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.github.libretube.R
 import com.github.libretube.api.RetrofitInstance
 import com.github.libretube.api.obj.ChannelTab
@@ -33,6 +35,7 @@ import com.github.libretube.ui.dialogs.ShareDialog
 import com.github.libretube.ui.extensions.setupSubscriptionButton
 import com.github.libretube.ui.sheets.AddChannelToGroupSheet
 import com.github.libretube.util.deArrow
+import com.google.android.material.appbar.AppBarLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -85,14 +88,33 @@ class ChannelFragment : DynamicLayoutManagerFragment() {
 
     }
 
+
+    private var isAppBarFullyExpanded = true
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
 
+        binding.channelAppBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
+            // Check if the AppBarLayout is fully expanded
+            isAppBarFullyExpanded = verticalOffset == 0
+            Log.d("Should I refresh Screen", verticalOffset.toString())
+
+        })
+        binding.channelRefresh.setOnChildScrollUpCallback(object : SwipeRefreshLayout.OnChildScrollUpCallback {
+            override fun canChildScrollUp(parent: SwipeRefreshLayout, child: View?): Boolean {
+                // Determine if the child can scroll up
+                return !isAppBarFullyExpanded
+            }
+        })
+
         binding.channelRefresh.setOnRefreshListener {
+            Log.d("Should I refresh Screen", "REFRESH!!!!!!!!!!!!!!!!!!!!!")
             fetchChannel()
+
         }
-        binding.channelRefresh.setAppBarLayout(binding.channelAppBar)
+        //  binding.channelRefresh.setAppBarLayout(binding.channelAppBar)
         binding.channelRecView.viewTreeObserver.addOnScrollChangedListener {
             val binding = _binding ?: return@addOnScrollChangedListener
 
