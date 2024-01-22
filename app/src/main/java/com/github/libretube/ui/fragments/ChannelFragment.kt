@@ -88,10 +88,11 @@ class ChannelFragment : DynamicLayoutManagerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         binding.channelRefresh.setOnRefreshListener {
             fetchChannel()
         }
-
+        binding.channelRefresh.setAppBarLayout(binding.channelAppBar)
         binding.channelRecView.viewTreeObserver.addOnScrollChangedListener {
             val binding = _binding ?: return@addOnScrollChangedListener
 

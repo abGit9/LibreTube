@@ -10,15 +10,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/channel_recView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/channel_app_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/channel_collapsing_tb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:background="#f6caec"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <LinearLayout
@@ -79,15 +86,15 @@
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/channel_share"
-                            android:tooltipText="@string/share"
                             style="@style/ElevatedIconButton"
+                            android:tooltipText="@string/share"
                             app:icon="@drawable/ic_share"
                             tools:targetApi="m" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/notification_bell"
-                            android:tooltipText="@string/notifications"
                             style="@style/ElevatedIconButton"
+                            android:tooltipText="@string/notifications"
                             app:icon="@drawable/ic_notification"
                             tools:targetApi="m" />
 
@@ -163,18 +170,16 @@
 
                 </LinearLayout>
 
+                <!-- Your other views (ImageView, LinearLayout with buttons, ExpandableTextView, HorizontalScrollView) go here -->
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
             <!-- Your other views (ImageView, LinearLayout with buttons, ExpandableTextView, HorizontalScrollView) go here -->
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
-        <!-- Your other views (ImageView, LinearLayout with buttons, ExpandableTextView, HorizontalScrollView) go here -->
 
-    </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/channel_recView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout></com.github.libretube.ui.views.CustomSwipeToRefresh>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</com.github.libretube.ui.views.CustomSwipeToRefresh>
