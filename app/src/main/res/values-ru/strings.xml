@@ -273,8 +273,6 @@
     <string name="preferences">Настройки</string>
     <string name="local_subscriptions">Локальные подписки</string>
     <string name="backup_customInstances">Свои серверы</string>
-    <string name="save_feed">Фоновая загрузка ленты</string>
-    <string name="save_feed_summary">Загружать ленту подписок в фоновом режиме, предотвращая её обновление при смене вкладок</string>
     <string name="play_next">Воспроизвести следующее</string>
     <string name="navigation_bar">Панель навигации</string>
     <string name="change_region">Похоже, что тренды не доступны в текущем регионе. Выберите другой регион в настройках.</string>
@@ -545,4 +543,13 @@
     <string name="copy_tooltip">Копировать</string>
     <string name="import_groups">Импортировать группы каналов</string>
     <string name="export_groups">Экспортировать группы каналов</string>
+    <string name="change_instance">Сменить сервер</string>
+    <string name="suggest_change_instance">Загрузка занимает дольше нормального. Возможно, стоит сменить сервер</string>
+    <string name="change">Сменить</string>
+    <string name="audio_language">Язык аудио</string>
+    <string name="default_language">По умолчанию</string>
+    <string name="enqueueing_playlist_download">Очередь скачивания видео из плейлиста %1$s</string>
+    <string name="download_playlist">Скачать плейлист</string>
+    <string name="enqueue_playlist_description">Показывать уведомление с очередью видео при скачивании плейлиста.</string>
+    <string name="download_playlist_note">Выберите максимальное качество скачиваемого аудио/видео. Субтитры будут скачаны только при наличии.</string>
 </resources>
