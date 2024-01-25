@@ -6,18 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.PlaylistFragment">
 
-    <ProgressBar
-        android:id="@+id/playlist_progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:visibility="gone" />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/playlist_recView"
-       android:layout_below="@id/playlist_app_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
@@ -32,12 +23,10 @@
             android:id="@+id/playlist_collapsing_tb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#f6caec"
-
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll"
+            app:titleCollapseMode="scale">
 
             <LinearLayout
-                app:layout_collapseMode="pin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -159,6 +148,13 @@
 
             </LinearLayout>
 
+            <ProgressBar
+                android:id="@+id/playlist_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:visibility="gone" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
